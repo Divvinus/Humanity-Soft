@@ -130,6 +130,8 @@ class Runner:
             if idx > 0:
                 if SLEEP_MODE:
                     await self.smart_sleep(SLEEP_TIME_ACCOUNTS[0], SLEEP_TIME_ACCOUNTS[1])
+                else:
+                    await asyncio.sleep(0.5)
 
             task = asyncio.create_task(account_task())
             tasks.append(task)
