@@ -101,7 +101,7 @@ def get_accounts_data():
             private_key = sheet.cell(row=row, column=2).value
             proxies = sheet.cell(row=row, column=3).value
 
-            if not all([account_name, private_key, proxies]):
+            if not all([account_name, private_key]):
                 continue
 
             accounts.append({
