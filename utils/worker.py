@@ -44,16 +44,21 @@ class Worker(ElementHandler):
         logger.info(f"{self.client.name} | Запрашиваем токены из крана | Адрес: {self.client.address}")
 
         async with async_playwright() as p:
+            executable_path = p.chromium.executable_path()
+    
             args = [
                 "--disable-blink-features=AutomationControlled"
             ]
+    
             context = await p.chromium.launch_persistent_context(
                 user_data_dir=self.user_data_dir,
                 headless=True,
                 proxy=Proxy.from_str(self.client.proxy_init).as_playwright_proxy,
                 args=args,
                 locale="en-US",
+                executable_path=executable_path
             )
+            
             page: Page = await context.new_page()
             await page.goto('https://faucet.testnet.humanity.org/', timeout=60000)
 
